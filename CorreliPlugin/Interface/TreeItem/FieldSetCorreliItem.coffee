@@ -8,15 +8,12 @@ class FieldSetCorreliItem extends TreeItem_Automatic
         #@_ico.set "img/part_collection.png"
         @_viewable.set true
         
-#         field_set_data = new FieldSetDataCorreliModel
         
         # attributes
         @add_attr
             id : id_c
             visualization: new FieldSet
             
-            # data results
-#             _file_field_set_data   : new  File (@_name.get() + "_field_data"), field_set_data
             
             # pointage vers ImgDirectorySetItem
             _img_field_set_ptr: new Ptr img_field_set_item

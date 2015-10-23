@@ -5,7 +5,7 @@ class FieldSetDataDirectory extends TreeItem
         
         @_name.set name
 
-        field_set_data = new FieldSetDataCorreliModel
+        field_set_data = new CorreliResult
 
         @add_attr
             _file_field_set_data   : new  File (@_name.get() + "_field_data"), field_set_data

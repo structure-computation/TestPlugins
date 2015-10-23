@@ -41,7 +41,7 @@ bool GmshUpdater::run( MP mp ) {
                 add_message( mp, ET_Error, "Unable to find .geo path" );
                 return false;
             }
-            //qDebug() << "Path : " << path_csv;
+            qDebug() << "Path : " << path;
             std::string filename(path.toStdString());
             PRINT(filename);
             PRINT(name.toStdString());
@@ -97,7 +97,12 @@ bool GmshUpdater::run( MP mp ) {
         }
         // Debug
         cmd = "cp " + geo->fileName() + ".msh ~/test.msh";
-        int dummy = system( cmd.toAscii().data() );
+        
+        // Pour envoyer le fichier .msh sur le Hub
+        QString addr = geo->fileName() + ".msh";
+        qDebug() << "Adresse du fichier msh : " << addr;
+//         send(addr);
+        
 
         TypedArray<int> *triangle_con = new TypedArray<int>;
         TypedArray<int> *tetro_con = new TypedArray<int>;
@@ -106,7 +111,7 @@ bool GmshUpdater::run( MP mp ) {
         QSet<TL> lines;
 
         // read the .msh file
-        QFile msh( geo->fileName() + ".msh" );
+        QFile msh( geo->fileName() + ".msh" );        
         msh.open( QFile::ReadOnly );
         QTextStream inp( &msh );
         int mode = 0;
@@ -215,21 +220,21 @@ bool GmshUpdater::run( MP mp ) {
         tetrahedra[ "indices" ] = tetro_con;
         om[ "_elements" ] << tetrahedra;
         
-        /* .geo -> .unv (TODO: comment referencer le fichier)
-        int generate_unv = mp["generate_unv"];
-        if(generate_unv) {
-            //QString cmd_unv = "gmsh -o " + geo->fileName() + ".unv -3 " + geo->fileName() + " > /dev/null";
-            QString cmd_unv = "gmsh -o ~/test.unv -3 " + geo->fileName() + " > /dev/null";
-            if ( system( cmd_unv.toAscii().data() ) ) {
-                add_message( mp, ET_Error, "gmsh has crashed generating unv file" );
-                return true;
-            }
-            //MP unv_file = MP::new_file(geo->fileName() + ".unv");
-            //mp["output"] << unv_file;
-            // Debug
-            //cmd_unv = "cp " + geo->fileName() + ".unv ~/test.unv";
-            //system( cmd_unv.toAscii().data() );
-        }//*/
+        //.geo -> .unv (TODO: comment referencer le fichier)
+//         int generate_unv = mp["generate_unv"];
+//         if(generate_unv) {
+//             //QString cmd_unv = "gmsh -o " + geo->fileName() + ".unv -3 " + geo->fileName() + " > /dev/null";
+//             QString cmd_unv = "gmsh -o ~/test.unv -3 " + geo->fileName() + " > /dev/null";
+//             if ( system( cmd_unv.toAscii().data() ) ) {
+//                 add_message( mp, ET_Error, "gmsh has crashed generating unv file" );
+//                 return true;
+//             }
+//             MP unv_file = MP::new_file(geo->fileName() + ".unv");
+//             mp["output"] << unv_file;
+//             //Debug
+//             cmd_unv = "cp " + geo->fileName() + ".unv ~/test.unv";
+//             system( cmd_unv.toAscii().data() );
+//         }
         
         //mp.flush();
         //        foreach( TL l, lines ) {
@@ -237,8 +242,7 @@ bool GmshUpdater::run( MP mp ) {
         //            rs << l.first << l.second;
         //            om[ "lines" ] << rs;
         //        }
-        
-        qDebug() << om;
+
     }
     //qDebug() << "GmshItem : ";
     //qDebug() << mp;

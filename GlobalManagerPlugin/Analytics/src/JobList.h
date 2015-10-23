@@ -185,7 +185,7 @@ class Job : public QObject {
         quint64 model_computation_rep_date      = model_test[ "_computation_rep_date" ];
         
 //         qDebug() << "model_computation_mode : " << model_computation_mode << "  model_computation_state : " << model_computation_state;
-        qDebug() << "model_computation_state" << model_computation_state;
+//         qDebug() << "model_computation_state" << model_computation_state;
         if ( model_computation_state == true ){
             run_app = true;
         }

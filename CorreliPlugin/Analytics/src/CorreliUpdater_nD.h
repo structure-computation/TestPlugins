@@ -235,6 +235,7 @@ bool correliUpdater_nD( CorreliUpdater *updater, MP mp, LMT::Number<dim> ) {
                         else {
                             vec_names[j] = name;
                             try {
+                                qDebug() << "Adresse de l'image : " << name.toAscii().data();
                                 img->load( name.toAscii().data() );
                                 img->reverse_y();
                             } catch ( std::string msg ) {
@@ -326,8 +327,6 @@ bool correliUpdater_nD( CorreliUpdater *updater, MP mp, LMT::Number<dim> ) {
 // ------------------------------------------------------------------------------------------------------------------------------
     
     // Dossier contenant les FileItem poitant vers les fichiers résultats
-    
-//     MP data_directory = updater->sc->load_ptr( mp[ "_output[0]" ][ "_img_field_set_ptr" ]);
     MP data_directory = mp[ "_children[1]" ];
     PRINT( data_directory.size() );
     

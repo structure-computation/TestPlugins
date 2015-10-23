@@ -1,5 +1,5 @@
 #
-class FieldSetDataCorreliModel extends Model
+class CorreliResult extends Model
     constructor: ( id_c = 0 ) ->
         super()
         
